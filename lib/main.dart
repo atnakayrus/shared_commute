@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_commute/views/pages/home_wrapper/home_wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_commute/views/pages/login_signup_routes/login_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.purple,
         ),
       ),
-      home: HomeWrapper(),
+      home: LoginPage(),
     );
   }
 }
