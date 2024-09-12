@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:shared_commute/views/pages/home_page/home_page.dart';
+import 'package:shared_commute/views/pages/home_wrapper/home_wrapper.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -11,7 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      theme: ThemeData.from(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.purple,
+        ),
+      ),
+      home: HomeWrapper(),
     );
   }
 }

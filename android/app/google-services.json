@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "399152669451",
+    "project_id": "shared-commute-atnakayrus",
+    "storage_bucket": "shared-commute-atnakayrus.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399152669451:android:33ad4db6d73a1ab0bbf80e",
+        "android_client_info": {
+          "package_name": "com.example.shared_commute"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiW6FvXQL5RM5kov93VaprL-fqhLpCJ14"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
