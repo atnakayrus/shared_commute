@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_commute/views/pages/home_wrapper/home_wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_commute/views/pages/home_wrapper/auth_load_page.dart';
+import 'package:shared_commute/views/pages/login_signup_routes/login_page.dart';
+import 'package:shared_commute/views/pages/login_signup_routes/signup_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,12 +17,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData.from(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.purple,
         ),
       ),
-      home: HomeWrapper(),
+      routes: {
+        '/': (context) => const AuthLoadPage(),
+        '/login': (context) => const LoginPage(),
+        '/signup': (context) => const SignupPage(),
+        '/home': (context) => const HomeWrapper(),
+      },
+      initialRoute: '/',
     );
   }
 }
