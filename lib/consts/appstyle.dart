@@ -30,6 +30,7 @@ class Appstyle {
     fontSize: 14,
     color: const Color(0xFF111111),
   );
+  Color brandColor = Colors.purple[500]!;
   Color buttonActiveColor = Colors.purple[500]!;
   Color buttonDisabledColor = Colors.purple[200]!;
 }

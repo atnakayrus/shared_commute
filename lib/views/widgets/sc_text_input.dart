@@ -8,18 +8,46 @@ class ScTextInput extends StatefulWidget {
   double width;
   double height;
   String? hintText;
+  String? labelText;
+  String? helperText;
   TextInputType? keyboardType;
   ScTextInput({
     super.key,
     required this.controller,
+    required this.width,
+    required this.height,
     this.keyboardType,
     this.hintText,
-    this.width = 240,
-    this.height = 50,
+    this.helperText,
+    this.labelText,
     this.isDisabled = false,
     this.isExpandable = false,
     this.isPassword = false,
   });
+  ScTextInput.fullWidth(
+      {super.key,
+      required this.controller,
+      this.keyboardType,
+      this.hintText,
+      this.helperText,
+      this.labelText,
+      this.isDisabled = false,
+      this.isExpandable = false,
+      this.isPassword = false})
+      : height = 50,
+        width = double.infinity;
+  ScTextInput.halfWidth(
+      {super.key,
+      required this.controller,
+      this.keyboardType,
+      this.hintText,
+      this.helperText,
+      this.labelText,
+      this.isDisabled = false,
+      this.isExpandable = false,
+      this.isPassword = false})
+      : height = 50,
+        width = 240;
 
   @override
   State<ScTextInput> createState() => _ScTextInputState();
@@ -29,54 +57,41 @@ class _ScTextInputState extends State<ScTextInput> {
   bool show = false;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: widget.width,
       height: widget.height,
-      padding: EdgeInsets.fromLTRB(20, 0, (widget.isPassword ? 5 : 20), 0),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.black,
-        ),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(100),
-        ),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: widget.isPassword ? 150 : 198,
-            height: 30,
-            child: TextField(
-              controller: widget.controller,
-              keyboardType: widget.keyboardType,
-              readOnly: widget.isDisabled,
-              maxLines: widget.isExpandable ? 999 : 1,
-              expands: widget.isExpandable,
-              obscureText: !(show || !widget.isPassword),
-              decoration: InputDecoration(
-                  hintText: widget.hintText,
-                  border: InputBorder.none,
-                  contentPadding: const EdgeInsets.only(
-                    bottom: 20 / 2, // HERE THE IMPORTANT PART
-                  )),
+      child: TextField(
+        controller: widget.controller,
+        keyboardType: widget.keyboardType,
+        readOnly: widget.isDisabled,
+        maxLines: widget.isExpandable ? 999 : 1,
+        expands: widget.isExpandable,
+        obscureText: !(show || !widget.isPassword),
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: const BorderSide(
+              color: Colors.black,
+              width: 2,
             ),
           ),
-          widget.isPassword
-              ? IconButton(
-                  onPressed: () {
+          hintText: widget.hintText,
+          labelText: widget.labelText,
+          helperText: widget.helperText,
+          contentPadding: const EdgeInsets.fromLTRB(15, 10, 10, 15),
+          suffixIcon: widget.isPassword
+              ? GestureDetector(
+                  onTap: () {
                     setState(() {
                       show = !show;
                     });
                   },
-                  icon: Icon(show
+                  child: Icon(show
                       ? Icons.visibility_outlined
                       : Icons.visibility_off_outlined),
                 )
-              : const SizedBox.shrink(),
-        ],
+              : null,
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_commute/consts/appstyle.dart';
+import 'package:shared_commute/controllers/user_auth/user_controller.dart';
 import 'package:shared_commute/views/widgets/sc_button.dart';
 import 'package:shared_commute/views/widgets/sc_text_input.dart';
 
@@ -11,7 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController userNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
@@ -30,14 +31,14 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               height: 10,
             ),
-            ScTextInput(
-              controller: userNameController,
-              hintText: "Username",
+            ScTextInput.halfWidth(
+              controller: emailController,
+              hintText: "Email id",
             ),
             const SizedBox(
               height: 10,
             ),
-            ScTextInput(
+            ScTextInput.halfWidth(
               controller: passwordController,
               isPassword: true,
               hintText: "Password",
@@ -53,7 +54,9 @@ class _LoginPageState extends State<LoginPage> {
                   style: Appstyle().helperText,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.popAndPushNamed(context, '/signup');
+                  },
                   child: Text(
                     'Signup instead',
                     style: Appstyle()
@@ -67,7 +70,10 @@ class _LoginPageState extends State<LoginPage> {
               height: 10,
             ),
             ScButton(
-              onTap: () {},
+              onTap: () {
+                UserController()
+                    .userLogin(emailController.text, passwordController.text);
+              },
               text: "LOGIN",
             )
           ],
