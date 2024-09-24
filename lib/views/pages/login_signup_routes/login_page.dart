@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_commute/consts/appstyle.dart';
-import 'package:shared_commute/controllers/user_auth/user_controller.dart';
+import 'package:shared_commute/controllers/user_auth/user_auth_controller.dart';
 import 'package:shared_commute/views/widgets/sc_button.dart';
 import 'package:shared_commute/views/widgets/sc_text_input.dart';
 
@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             ScButton(
               onTap: () {
-                UserController()
+                UserAuthController()
                     .userLogin(emailController.text, passwordController.text);
               },
               text: "LOGIN",

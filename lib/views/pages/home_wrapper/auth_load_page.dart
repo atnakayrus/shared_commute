@@ -7,14 +7,14 @@ class AuthLoadPage extends StatefulWidget {
   const AuthLoadPage({super.key});
 
   @override
-  State<AuthLoadPage> createState() => _LoadingPageState();
+  State<AuthLoadPage> createState() => _AuthLoadPageState();
 }
 
-class _LoadingPageState extends State<AuthLoadPage> {
+class _AuthLoadPageState extends State<AuthLoadPage> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
+        stream: FirebaseAuth.instance.userChanges(),
         builder: (context, snapshot) {
           debugPrint("Auth Changes");
           if (snapshot.hasData) {
