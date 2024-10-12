@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UserDataController {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  static final firestore = FirebaseFirestore.instance;
 
   Future<int> updateAuthUserProfile({
     String? displayName,
@@ -29,5 +32,20 @@ class UserDataController {
       }
     }
     return (0);
+  }
+
+  Future<int> uploadUserToFirestore(User user) async {
+    try {
+      firestore.collection('users').doc(user.uid).set({
+        'uid': user.uid,
+        'email': user.email,
+        'display_name': user.displayName
+      }, SetOptions(merge: true));
+
+      return (1);
+    } catch (e) {
+      debugPrint(e.toString());
+      return (0);
+    }
   }
 }

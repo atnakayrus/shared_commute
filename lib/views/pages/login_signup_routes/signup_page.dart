@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:shared_commute/common/toast.dart';
 import 'package:shared_commute/consts/appstyle.dart';
 import 'package:shared_commute/controllers/user_auth/user_auth_controller.dart';
-import 'package:shared_commute/controllers/user_data/user_data_controller.dart';
 import 'package:shared_commute/views/widgets/sc_button.dart';
 import 'package:shared_commute/views/widgets/sc_text_input.dart';
 
 class SignupPage extends StatefulWidget {
+  static const pageId = '/signup';
   const SignupPage({super.key});
 
   @override
@@ -95,13 +96,17 @@ class _SignupPageState extends State<SignupPage> {
                   displayNameController.text != '' &&
                   passwordController.text != '' &&
                   confirmPasswordController.text == passwordController.text) {
-                int res = await UserAuthController()
-                    .userSignup(emailController.text, passwordController.text);
-                if (res == 1 && context.mounted) {
-                  UserDataController().updateAuthUserProfile(
+                if (!emailController.text.contains('jnu.ac.in')) {
+                  showToast('Please enter jnu id');
+                } else {
+                  int res = await UserAuthController().userSignup(
+                    email: emailController.text,
+                    password: passwordController.text,
                     displayName: displayNameController.text,
                   );
-                  Navigator.popAndPushNamed(context, '/');
+                  if (res == 1 && context.mounted) {
+                    Navigator.popAndPushNamed(context, '/');
+                  }
                 }
               }
             },

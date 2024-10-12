@@ -4,6 +4,7 @@ import 'package:shared_commute/views/pages/home_wrapper/home_wrapper.dart';
 import 'package:shared_commute/views/pages/login_signup_routes/login_page.dart';
 
 class AuthLoadPage extends StatefulWidget {
+  static const pageId = '/';
   const AuthLoadPage({super.key});
 
   @override

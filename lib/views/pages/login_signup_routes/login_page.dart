@@ -5,6 +5,7 @@ import 'package:shared_commute/views/widgets/sc_button.dart';
 import 'package:shared_commute/views/widgets/sc_text_input.dart';
 
 class LoginPage extends StatefulWidget {
+  static const pageId = '/login';
   const LoginPage({super.key});
 
   @override

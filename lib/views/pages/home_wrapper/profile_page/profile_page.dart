@@ -28,10 +28,31 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             ScTextButton(
               onTap: () {
+                // TODO: open the edit page here
+              },
+              text: "General Settings",
+              icon: Icons.settings,
+            ),
+            ScTextButton(
+              onTap: () {
+                // TODO: open the edit page here
+              },
+              text: "Security Settings",
+              icon: Icons.security,
+            ),
+            ScTextButton(
+              onTap: () {
                 UserAuthController().userSignout();
               },
               text: "Logout",
               icon: Icons.logout,
+            ),
+            ScTextButton(
+              onTap: () {
+                // TODO: open the edit page here
+              },
+              text: "Delete Account",
+              icon: Icons.delete,
               showBottomBorder: true,
             ),
           ],
