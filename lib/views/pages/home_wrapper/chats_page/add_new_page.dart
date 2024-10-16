@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_commute/consts/appstyle.dart';
 import 'package:shared_commute/controllers/socials/social_utils.dart';
+import 'package:shared_commute/controllers/user_auth/user_auth_controller.dart';
 import 'package:shared_commute/models/user_model.dart';
 import 'package:shared_commute/views/pages/home_wrapper/chats_page/widgets/searched_user_tile.dart';
 import 'package:shared_commute/views/widgets/sc_icon_button.dart';
@@ -32,7 +33,12 @@ class _AddNewPageState extends State<AddNewPage> {
             onPressed: () async {
               List<UserModel> matchedUsers =
                   await SocialUtils().getUserListByEmail(searchController.text);
-              print(matchedUsers);
+              for (UserModel user in List.from(matchedUsers)) {
+                if (user.email == UserAuthController().getUser!.email) {
+                  matchedUsers.remove(user);
+                }
+              }
+
               setState(() {
                 users = matchedUsers;
               });

@@ -33,7 +33,6 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomeWrapper(),
         '/searchPage': (context) => const SearchPage(),
         '/addNewPage': (context) => const AddNewPage(),
-        '/chatPage': (context) => const ChatPage(),
       },
       initialRoute: '/',
     );

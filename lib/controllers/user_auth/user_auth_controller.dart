@@ -20,7 +20,7 @@ class UserAuthController {
       UserDataController().updateAuthUserProfile(
         displayName: displayName,
       );
-      _userDataController.uploadUserToFirestore(user);
+      _userDataController.uploadUserToFirestore(UserAuthController().getUser!);
       return (1);
     }
     return (0);

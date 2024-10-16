@@ -19,7 +19,7 @@ class _SearchPageState extends State<SearchPage> {
         child: Column(
           children: [
             Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: ScSearchBar(controller: searchController)),
           ],
         ),

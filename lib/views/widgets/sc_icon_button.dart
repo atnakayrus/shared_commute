@@ -5,11 +5,13 @@ class ScIconButton extends StatelessWidget {
   final Function() onPressed;
   final IconData icon;
   final bool isOutlined;
+  final Color? buttonColor;
   const ScIconButton({
     super.key,
     required this.onPressed,
     required this.icon,
     this.isOutlined = false,
+    this.buttonColor,
   });
 
   @override
@@ -19,6 +21,7 @@ class ScIconButton extends StatelessWidget {
           ? BoxDecoration(
               borderRadius: BorderRadius.circular(Appstyle().scIconSize),
               border: Border.all(color: Colors.black45, width: 1),
+              color: buttonColor,
             )
           : null,
       padding: const EdgeInsets.all(10),

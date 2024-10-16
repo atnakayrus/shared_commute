@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_commute/consts/appstyle.dart';
 import 'package:shared_commute/models/user_model.dart';
+import 'package:shared_commute/views/pages/home_wrapper/chats_page/chat_page/chat_page.dart';
 
 class SearchedUserTile extends StatelessWidget {
   final UserModel user;
@@ -9,7 +10,14 @@ class SearchedUserTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ChatPage(
+                      user: user,
+                    )));
+      },
       child: Container(
         margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: ListTile(

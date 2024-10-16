@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_commute/models/user_model.dart';
 
 class UserDataController {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -32,6 +33,12 @@ class UserDataController {
       }
     }
     return (0);
+  }
+
+  Future<UserModel> getUserById(String uid) async {
+    final doc = await firestore.collection('users').doc(uid).get();
+    UserModel user = UserModel.fromJson(doc.data() as Map<String, dynamic>);
+    return user;
   }
 
   Future<int> uploadUserToFirestore(User user) async {
