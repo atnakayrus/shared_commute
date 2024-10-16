@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_commute/consts/appstyle.dart';
 import 'package:shared_commute/views/pages/home_wrapper/chats_page/search_page.dart';
 import 'package:shared_commute/views/widgets/sc_icon_button.dart';
 import 'package:shared_commute/views/widgets/sc_search_bar.dart';

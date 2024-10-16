@@ -12,6 +12,13 @@ class ChatTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool viewed = false;
+    if (chat.lastMessageSender == UserAuthController().getUser!.uid) {
+      viewed = true;
+    } else if (chat.lastMessageViewed ?? false) {
+      viewed = true;
+    }
+
     return GestureDetector(
       onTap: () async {
         UserModel user = await UserDataController().getUserById(
@@ -41,17 +48,20 @@ class ChatTile extends StatelessWidget {
             chat.person1 == UserAuthController().getUser!.uid
                 ? chat.person2Name ?? ""
                 : chat.person1Name ?? "",
-            style: Appstyle().subtitleText,
+            style: Appstyle().subtitleText.copyWith(
+                fontWeight: viewed ? FontWeight.normal : FontWeight.bold),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
           ),
           subtitle: Text(
             chat.lastMessage ?? "",
-            style: Appstyle().helperText,
+            style: Appstyle().helperText.copyWith(
+                fontWeight: viewed ? FontWeight.normal : FontWeight.bold),
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
           ),
-          trailing: IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
+          trailing:
+              IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
         ),
       ),
     );

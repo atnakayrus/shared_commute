@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_commute/consts/enums.dart';
-import 'package:shared_commute/models/chat_heads.dart';
 import 'package:shared_commute/models/chat_room.dart';
 import 'package:shared_commute/models/user_model.dart';
 
@@ -30,7 +29,7 @@ class ChatController {
         .collection('chatRooms')
         .doc(uid)
         .collection('rooms')
-        .orderBy("timestamp", descending: true)
+        .orderBy("last_updated", descending: true)
         .snapshots();
   }
 
@@ -57,12 +56,14 @@ class ChatController {
             .collection('chatRooms')
             .doc(user1.uid)
             .collection('rooms')
-            .add({'roomId': roomId});
+            .doc(roomId)
+            .set({'roomId': roomId, "last_updated": Timestamp.now()});
         firestore
             .collection('chatRooms')
             .doc(user2.uid)
             .collection('rooms')
-            .add({'roomId': roomId});
+            .doc(roomId)
+            .set({'roomId': roomId, "last_updated": Timestamp.now()});
         return ResponseCode.success;
       }
     } catch (e) {

@@ -35,6 +35,7 @@ class _ChatPageState extends State<ChatPage> {
     } else {
       roomId = widget.roomId!;
     }
+    MessageController().markChatAsRead(roomId);
     super.initState();
   }
 
@@ -68,7 +69,8 @@ class _ChatPageState extends State<ChatPage> {
                               text: messageController.text,
                               timestamp: Timestamp.now(),
                               sender: UserAuthController().getUser!.uid),
-                          roomId: roomId);
+                          roomId: roomId,
+                          receiever: widget.user.uid!);
                       messageController.text = '';
                     }
                   }

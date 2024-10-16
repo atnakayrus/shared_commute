@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_commute/consts/appstyle.dart';
 import 'package:shared_commute/controllers/socials/chat_controller.dart';
 import 'package:shared_commute/controllers/user_auth/user_auth_controller.dart';
-import 'package:shared_commute/controllers/user_data/user_data_controller.dart';
 import 'package:shared_commute/models/chat_room.dart';
 import 'package:shared_commute/views/pages/home_wrapper/chats_page/widgets/chat_tile.dart';
 import 'package:shared_commute/views/widgets/sc_icon_button.dart';
@@ -16,10 +15,12 @@ class ChatsPage extends StatefulWidget {
 
 class _ChatsPageState extends State<ChatsPage> {
   TextEditingController searchController = TextEditingController(text: '');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         elevation: 0,
         title: Text(
           '  I N B O X',
@@ -63,7 +64,6 @@ class _ChatsPageState extends State<ChatsPage> {
                           person2: "",
                           person2Name: ""),
                       builder: (context, snap) {
-                        print(snap.data!.toJson());
                         return ChatTile(chat: snap.data!);
                       });
                 })

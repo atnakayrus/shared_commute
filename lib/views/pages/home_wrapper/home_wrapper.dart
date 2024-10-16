@@ -34,7 +34,7 @@ class _HomeWrapperState extends State<HomeWrapper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: selectedPage(selected)),
+      body: selectedPage(selected),
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Colors.purple,

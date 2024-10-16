@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_commute/consts/enums.dart';
-import 'package:shared_commute/models/chat_room.dart';
+import 'package:shared_commute/controllers/user_auth/user_auth_controller.dart';
 import 'package:shared_commute/models/message.dart';
 
 class MessageController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<ResponseCode> sendMessage(
-      {required Message message, required String roomId}) async {
+      {required Message message,
+      required String roomId,
+      required String receiever}) async {
     try {
       firestore
           .collection('chats')
@@ -15,29 +17,36 @@ class MessageController {
           .collection('message')
           .add(message.toJson());
       firestore.collection('chats').doc(roomId).update({
-        "last_updated": Timestamp.now().toString(),
+        "last_updated": Timestamp.now(),
+        "last_message": message.text,
+        "last_message_sender": UserAuthController().getUser!.uid,
+        "last_message_viewed": false,
       });
+      firestore
+          .collection('chatRooms')
+          .doc(message.sender)
+          .collection('rooms')
+          .doc(roomId)
+          .update({"last_updated": Timestamp.now()});
+      firestore
+          .collection('chatRooms')
+          .doc(receiever)
+          .collection('rooms')
+          .doc(roomId)
+          .update({"last_updated": Timestamp.now()});
       return ResponseCode.success;
     } catch (e) {
       return ResponseCode.serverError;
     }
   }
 
-  Future<List<Message>?> getMessages({required String roomId}) async {
-    try {
-      QuerySnapshot doc = await firestore
-          .collection('chats')
-          .doc(roomId)
-          .collection('message')
-          .get();
-      print(doc.docs);
-      DocumentSnapshot docs =
-          await firestore.collection('chats').doc(roomId).get();
-      print(docs.data());
-      ChatRoom chatRoom = ChatRoom();
-      return chatRoom.messages;
-    } catch (e) {
-      return null;
+  void markChatAsRead(String roomId) async {
+    final doc = await firestore.collection('chats').doc(roomId).get();
+    final data = doc.data() as Map<String, dynamic>;
+    if (data['last_message_sender'] != UserAuthController().getUser!.uid) {
+      firestore.collection('chats').doc(roomId).update({
+        "last_message_viewed": true,
+      });
     }
   }
 
@@ -46,6 +55,7 @@ class MessageController {
         .collection('chats')
         .doc(roomId)
         .collection('message')
+        .orderBy("timestamp", descending: true)
         .snapshots();
   }
 }
