@@ -43,9 +43,19 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          widget.user.displayName ?? "Display Name",
-          style: Appstyle().mainText,
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.user.displayName ?? "Display Name",
+              style: Appstyle().mainText,
+            ),
+            Text(
+              widget.user.email!,
+              style: Appstyle().helperText,
+            )
+          ],
         ),
         actions: [ScIconButton(onPressed: () {}, icon: Icons.more_vert)],
         backgroundColor: Theme.of(context).primaryColor,
@@ -76,27 +86,30 @@ class _ChatPageState extends State<ChatPage> {
                   }
                 }),
           ),
-          StreamBuilder(
-              stream: message.getStream(roomId: roomId),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState != ConnectionState.active) {
-                  return const Text('Connecting...');
-                }
-                return ListView(
-                  reverse: true,
-                  shrinkWrap: true,
-                  children: [
-                    ...snapshot.data!.docs.map((element) {
-                      Message me = Message.fromJson(
-                          element.data() as Map<String, dynamic>);
-                      return MessageTile(
-                          message: me,
-                          sender: widget.user.displayName!,
-                          self: me.sender != widget.user.uid);
-                    }),
-                  ],
-                );
-              })
+          Expanded(
+            child: StreamBuilder(
+                stream: message.getStream(roomId: roomId),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState != ConnectionState.active) {
+                    return const Text('Connecting...');
+                  }
+                  return ListView(
+                    reverse: true,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      ...snapshot.data!.docs.map((element) {
+                        Message me = Message.fromJson(
+                            element.data() as Map<String, dynamic>);
+                        return MessageTile(
+                            message: me,
+                            sender: widget.user.displayName!,
+                            self: me.sender != widget.user.uid);
+                      }),
+                    ],
+                  );
+                }),
+          )
         ],
       ),
     );

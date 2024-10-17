@@ -28,16 +28,23 @@ class MessageTile extends StatelessWidget {
               style: Appstyle().helperText,
             ),
           Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            margin: self
+                ? const EdgeInsets.only(left: 30)
+                : const EdgeInsets.only(right: 30),
             decoration: BoxDecoration(
               color: self ? Theme.of(context).primaryColor : Colors.white,
               border: Border.all(color: Colors.black45, width: 1),
-              borderRadius: BorderRadius.circular(100),
+              borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
               message.text!,
               style: Appstyle().contentText,
             ),
+          ),
+          Text(
+            ("${message.timestamp!.toDate().day}/${message.timestamp!.toDate().month}  ${message.timestamp!.toDate().hour}:${message.timestamp!.toDate().minute}"),
+            style: Appstyle().helperText,
           )
         ],
       ),

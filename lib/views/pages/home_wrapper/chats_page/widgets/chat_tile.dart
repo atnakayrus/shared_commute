@@ -31,7 +31,7 @@ class ChatTile extends StatelessWidget {
         }
       },
       child: Container(
-        padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
+        padding: const EdgeInsets.only(top: 20),
         child: ListTile(
           leading: SizedBox(
             height: Appstyle().scChatIconSize,

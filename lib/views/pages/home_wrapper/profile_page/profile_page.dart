@@ -42,6 +42,20 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               ScTextButton(
                 onTap: () {
+                  // TODO: open the edit page here
+                },
+                text: "FAQs",
+                icon: Icons.question_mark,
+              ),
+              ScTextButton(
+                onTap: () {
+                  // TODO: open the edit page here
+                },
+                text: "Contact us",
+                icon: Icons.phone,
+              ),
+              ScTextButton(
+                onTap: () {
                   UserAuthController().userSignout();
                 },
                 text: "Logout",
