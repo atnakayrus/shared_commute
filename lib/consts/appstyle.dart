@@ -33,4 +33,8 @@ class Appstyle {
   Color brandColor = Colors.purple[500]!;
   Color buttonActiveColor = Colors.purple[500]!;
   Color buttonDisabledColor = Colors.purple[200]!;
+
+  double scUserIconSize = 100;
+  double scChatIconSize = 64;
+  double scIconSize = 32;
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:shared_commute/controllers/socials/social_utils.dart';
 import 'package:shared_commute/views/pages/home_wrapper/profile_page/profile_page.dart';
 import 'package:shared_commute/views/pages/home_wrapper/rides_page/rides_page.dart';
 import 'package:shared_commute/views/pages/home_wrapper/chats_page/chats_page.dart';
 import 'package:shared_commute/views/pages/home_wrapper/home_page/home_page.dart';
 
 class HomeWrapper extends StatefulWidget {
+  static const pageId = '/home';
   const HomeWrapper({super.key});
 
   @override
@@ -69,7 +71,9 @@ class _HomeWrapperState extends State<HomeWrapper> {
             ),
           ]),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          SocialUtils().getUserListByEmail('abc');
+        },
         child: const Icon(
           Icons.add,
           color: Colors.black,

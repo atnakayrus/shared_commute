@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_commute/views/pages/home_wrapper/chats_page/add_new_page.dart';
+import 'package:shared_commute/views/pages/home_wrapper/chats_page/search_page.dart';
 import 'package:shared_commute/views/pages/home_wrapper/home_wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_commute/views/pages/home_wrapper/auth_load_page.dart';
@@ -16,6 +18,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.from(
@@ -28,8 +31,11 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/signup': (context) => const SignupPage(),
         '/home': (context) => const HomeWrapper(),
+        '/searchPage': (context) => const SearchPage(),
+        '/addNewPage': (context) => const AddNewPage(),
       },
       initialRoute: '/',
+      navigatorObservers: [routeObserver],
     );
   }
 }

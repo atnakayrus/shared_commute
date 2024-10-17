@@ -4,17 +4,18 @@ import 'package:shared_commute/views/pages/home_wrapper/home_wrapper.dart';
 import 'package:shared_commute/views/pages/login_signup_routes/login_page.dart';
 
 class AuthLoadPage extends StatefulWidget {
+  static const pageId = '/';
   const AuthLoadPage({super.key});
 
   @override
-  State<AuthLoadPage> createState() => _LoadingPageState();
+  State<AuthLoadPage> createState() => _AuthLoadPageState();
 }
 
-class _LoadingPageState extends State<AuthLoadPage> {
+class _AuthLoadPageState extends State<AuthLoadPage> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
+        stream: FirebaseAuth.instance.userChanges(),
         builder: (context, snapshot) {
           debugPrint("Auth Changes");
           if (snapshot.hasData) {
