@@ -4,6 +4,7 @@ import 'package:shared_commute/views/pages/home_wrapper/chats_page/search_page.d
 import 'package:shared_commute/views/pages/home_wrapper/home_wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_commute/views/pages/home_wrapper/auth_load_page.dart';
+import 'package:shared_commute/views/pages/home_wrapper/profile_page/edit_profile.dart';
 import 'package:shared_commute/views/pages/login_signup_routes/login_page.dart';
 import 'package:shared_commute/views/pages/login_signup_routes/signup_page.dart';
 
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomeWrapper(),
         '/searchPage': (context) => const SearchPage(),
         '/addNewPage': (context) => const AddNewPage(),
+        '/editProfile': (context) => const EditProfile(),
       },
       initialRoute: '/',
       navigatorObservers: [routeObserver],
