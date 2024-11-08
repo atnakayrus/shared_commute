@@ -17,7 +17,7 @@ class UserAuthController {
     if (user != null) {
       debugPrint("User Created");
       debugPrint(user.toString());
-      UserDataController().updateAuthUserProfile(
+      await UserDataController().updateAuthUserProfile(
         displayName: displayName,
       );
       _userDataController.uploadUserToFirestore(UserAuthController().getUser!);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_commute/controllers/user_auth/user_auth_controller.dart';
+import 'package:shared_commute/views/pages/home_wrapper/profile_page/edit_profile.dart';
 import 'package:shared_commute/views/pages/home_wrapper/profile_page/widgets/user_tile.dart';
 import 'package:shared_commute/views/widgets/sc_text_button.dart';
 
@@ -21,7 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
               const UserTile(),
               ScTextButton(
                 onTap: () {
-                  // TODO: open the edit page here
+                  Navigator.pushNamed(context, EditProfile.pageId);
                 },
                 text: "Edit Profile",
                 icon: Icons.person,
