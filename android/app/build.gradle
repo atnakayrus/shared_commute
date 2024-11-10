@@ -6,6 +6,8 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+apply from: project(':flutter_config_plus').projectDir.getPath() + "/dotenv.gradle"
+
 android {
     namespace = "com.example.shared_commute"
     compileSdk = flutter.compileSdkVersion

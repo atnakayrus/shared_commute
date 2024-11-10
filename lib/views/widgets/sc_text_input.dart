@@ -10,6 +10,7 @@ class ScTextInput extends StatefulWidget {
   String? hintText;
   String? labelText;
   String? helperText;
+  Color bgColor;
   TextInputType? keyboardType;
   ScTextInput({
     super.key,
@@ -23,6 +24,7 @@ class ScTextInput extends StatefulWidget {
     this.isDisabled = false,
     this.isExpandable = false,
     this.isPassword = false,
+    this.bgColor = Colors.transparent,
   });
   ScTextInput.fullWidth(
       {super.key,
@@ -33,6 +35,7 @@ class ScTextInput extends StatefulWidget {
       this.labelText,
       this.isDisabled = false,
       this.isExpandable = false,
+      this.bgColor = Colors.transparent,
       this.isPassword = false})
       : height = 50,
         width = double.infinity;
@@ -45,6 +48,7 @@ class ScTextInput extends StatefulWidget {
       this.labelText,
       this.isDisabled = false,
       this.isExpandable = false,
+      this.bgColor = Colors.transparent,
       this.isPassword = false})
       : height = 50,
         width = 240;
@@ -57,9 +61,10 @@ class _ScTextInputState extends State<ScTextInput> {
   bool show = false;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: widget.width,
       height: widget.height,
+      color: widget.bgColor,
       child: TextField(
         controller: widget.controller,
         keyboardType: widget.keyboardType,
