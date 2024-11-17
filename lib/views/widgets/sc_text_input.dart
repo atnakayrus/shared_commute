@@ -7,6 +7,9 @@ class ScTextInput extends StatefulWidget {
   final bool isPassword;
   double width;
   double height;
+  final Function(String)? onChanged;
+  final Function(String)? onSumbitted;
+  final Function()? onTap;
   String? hintText;
   String? labelText;
   String? helperText;
@@ -25,32 +28,41 @@ class ScTextInput extends StatefulWidget {
     this.isExpandable = false,
     this.isPassword = false,
     this.bgColor = Colors.transparent,
+    this.onChanged,
+    this.onSumbitted,
+    this.onTap,
   });
-  ScTextInput.fullWidth(
-      {super.key,
-      required this.controller,
-      this.keyboardType,
-      this.hintText,
-      this.helperText,
-      this.labelText,
-      this.isDisabled = false,
-      this.isExpandable = false,
-      this.bgColor = Colors.transparent,
-      this.isPassword = false})
-      : height = 50,
+  ScTextInput.fullWidth({
+    super.key,
+    required this.controller,
+    this.keyboardType,
+    this.hintText,
+    this.helperText,
+    this.labelText,
+    this.isDisabled = false,
+    this.isExpandable = false,
+    this.bgColor = Colors.transparent,
+    this.isPassword = false,
+    this.onChanged,
+    this.onSumbitted,
+    this.onTap,
+  })  : height = 50,
         width = double.infinity;
-  ScTextInput.halfWidth(
-      {super.key,
-      required this.controller,
-      this.keyboardType,
-      this.hintText,
-      this.helperText,
-      this.labelText,
-      this.isDisabled = false,
-      this.isExpandable = false,
-      this.bgColor = Colors.transparent,
-      this.isPassword = false})
-      : height = 50,
+  ScTextInput.halfWidth({
+    super.key,
+    required this.controller,
+    this.keyboardType,
+    this.hintText,
+    this.helperText,
+    this.labelText,
+    this.isDisabled = false,
+    this.isExpandable = false,
+    this.bgColor = Colors.transparent,
+    this.isPassword = false,
+    this.onChanged,
+    this.onSumbitted,
+    this.onTap,
+  })  : height = 50,
         width = 240;
 
   @override
@@ -66,6 +78,9 @@ class _ScTextInputState extends State<ScTextInput> {
       height: widget.height,
       color: widget.bgColor,
       child: TextField(
+        onChanged: widget.onChanged,
+        onSubmitted: widget.onSumbitted,
+        onTap: widget.onTap,
         controller: widget.controller,
         keyboardType: widget.keyboardType,
         readOnly: widget.isDisabled,

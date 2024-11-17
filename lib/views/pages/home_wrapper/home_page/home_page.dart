@@ -22,6 +22,8 @@ class _HomePageState extends State<HomePage> {
           MapLayover(
             originController: origin,
             destController: dest,
+            setDest: (dest) {},
+            setSource: (source) {},
           )
         ],
       ),

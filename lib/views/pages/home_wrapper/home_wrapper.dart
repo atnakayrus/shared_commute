@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_commute/controllers/socials/social_utils.dart';
+import 'package:shared_commute/models/address.dart';
+import 'package:shared_commute/services/geocoding_service.dart';
 import 'package:shared_commute/views/pages/home_wrapper/profile_page/profile_page.dart';
 import 'package:shared_commute/views/pages/home_wrapper/rides_page/rides_page.dart';
 import 'package:shared_commute/views/pages/home_wrapper/chats_page/chats_page.dart';
@@ -71,8 +72,12 @@ class _HomeWrapperState extends State<HomeWrapper> {
             ),
           ]),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          SocialUtils().getUserListByEmail('abc');
+        onPressed: () async {
+          final res = await GeocodingService()
+              .getSuggestions('Jawaharlal Nehru University');
+          for (var a in res) {
+            print(a.formattedAddress);
+          }
         },
         child: const Icon(
           Icons.add,
