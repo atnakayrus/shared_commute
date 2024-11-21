@@ -76,7 +76,10 @@ class _ScTextInputState extends State<ScTextInput> {
     return Container(
       width: widget.width,
       height: widget.height,
-      color: widget.bgColor,
+      decoration: BoxDecoration(
+        color: widget.bgColor,
+        borderRadius: BorderRadius.circular(15),
+      ),
       child: TextField(
         onChanged: widget.onChanged,
         onSubmitted: widget.onSumbitted,

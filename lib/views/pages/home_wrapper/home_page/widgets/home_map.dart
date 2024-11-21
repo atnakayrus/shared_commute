@@ -2,53 +2,59 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
-import 'package:shared_commute/common/toast.dart';
 import 'package:shared_commute/controllers/location/location_controller.dart';
+import 'package:shared_commute/views/widgets/sc_loading_page.dart';
 
 class HomeMap extends StatefulWidget {
-  const HomeMap({super.key});
+  final LatLng? origin;
+  final List<LatLng>? destinations;
+  final bool showOrigin;
+  const HomeMap({
+    super.key,
+    this.origin,
+    this.destinations,
+    required this.showOrigin,
+  });
 
   @override
   State<HomeMap> createState() => _HomeMapState();
 }
 
 class _HomeMapState extends State<HomeMap> {
-  LatLng? curr;
   final Completer<GoogleMapController> mapController =
       Completer<GoogleMapController>();
-  LatLng newDelhi = const LatLng(28.6139, 77.2088);
   LocationController locationController = LocationController();
   Map<PolylineId, Polyline> polylines = {};
 
   @override
   void initState() {
     super.initState();
-    getLocationUpdates();
+    updateMarkers();
   }
 
-  Future<void> getLocationUpdates() async {
-    if (!await locationController.isServiceEnabled()) {
-      showToast("Oops! Something went Wrong");
-      return;
-    } else if (!await locationController.requestPermission()) {
-      showToast("Permission not granted");
-    } else {
-      locationController.location.onLocationChanged
-          .listen((LocationData current) {
-        locationController.lat = current.latitude ?? locationController.lat;
-        locationController.lng = current.longitude ?? locationController.lng;
+  @override
+  void didUpdateWidget(covariant HomeMap oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.origin != widget.origin ||
+        oldWidget.destinations != widget.destinations) {
+      if (context.mounted) {
         setState(() {
-          if (curr == null) {
-            setCameraTo(newDelhi);
-            // setCameraTo(locationController.getUserLocation);
-          }
-          // curr = locationController.getUserLocation;
-          curr = newDelhi;
+          updateMarkers();
+        });
+      }
+    }
+  }
+
+  void updateMarkers() {
+    setState(() {
+      if (widget.origin != null) {
+        setState(() {
+          setCameraTo(widget.origin!);
+        });
+        if (widget.destinations != null && widget.destinations!.isNotEmpty) {
           locationController
               .getPolyPoints(
-                  origin: const LatLng(28.6139, 77.2088), //delhi
-                  dest: const LatLng(26.8467, 80.9462)) //lucknow
+                  origin: widget.origin!, dest: widget.destinations![0])
               .then((coordinates) {
             PolylineId id = const PolylineId('poly');
             Polyline polyline = Polyline(
@@ -58,38 +64,45 @@ class _HomeMapState extends State<HomeMap> {
                 width: 8);
             setState(() {
               polylines[id] = polyline;
+              setCameraTo(widget.destinations![0]);
             });
           });
-        });
-      });
-    }
+        }
+      }
+    });
   }
 
   Future<void> setCameraTo(LatLng pos) async {
     final GoogleMapController controller = await mapController.future;
-    CameraPosition position = CameraPosition(target: pos, zoom: 16);
+    CameraPosition position = CameraPosition(target: pos, zoom: 15);
     await controller.animateCamera(CameraUpdate.newCameraPosition(position));
   }
 
   @override
   Widget build(BuildContext context) {
-    return curr == null
-        ? const Center(
-            child: Text('Loading'),
-          )
+    return widget.origin == null
+        ? const ScLoadingPage()
         : GoogleMap(
             onMapCreated: ((GoogleMapController controller) =>
                 mapController.complete(controller)),
             initialCameraPosition: CameraPosition(
-              target: curr!,
+              target: widget.origin!,
               zoom: 16,
             ),
             markers: {
-              Marker(
-                markerId: const MarkerId("currentLocation"),
-                icon: BitmapDescriptor.defaultMarker,
-                position: curr!,
-              ),
+              if (widget.showOrigin)
+                Marker(
+                  markerId: const MarkerId("origin"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: widget.origin!,
+                ),
+              if (widget.destinations != null &&
+                  widget.destinations!.isNotEmpty)
+                Marker(
+                  markerId: const MarkerId('destination'),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: widget.destinations![0],
+                )
             },
             polylines: Set<Polyline>.of(polylines.values),
           );

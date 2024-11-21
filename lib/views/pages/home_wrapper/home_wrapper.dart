@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_commute/models/address.dart';
-import 'package:shared_commute/services/geocoding_service.dart';
 import 'package:shared_commute/views/pages/home_wrapper/profile_page/profile_page.dart';
 import 'package:shared_commute/views/pages/home_wrapper/rides_page/rides_page.dart';
 import 'package:shared_commute/views/pages/home_wrapper/chats_page/chats_page.dart';
@@ -23,9 +21,9 @@ class _HomeWrapperState extends State<HomeWrapper> {
         return const HomePage();
       case 1:
         return const ChatsPage();
-      case 3:
+      case 2:
         return const RidesPage();
-      case 4:
+      case 3:
         return const ProfilePage();
       default:
         return const HomePage();
@@ -43,48 +41,27 @@ class _HomeWrapperState extends State<HomeWrapper> {
           currentIndex: selected,
           onTap: (value) {
             setState(() {
-              if (value != 2) {
-                selected = value;
-              }
+              selected = value;
             });
           },
-          items: [
-            const BottomNavigationBarItem(
+          items: const [
+            BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: Icon(Icons.message),
               label: 'Chats',
             ),
             BottomNavigationBarItem(
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              icon: const SizedBox.shrink(),
-              label: "",
-            ),
-            const BottomNavigationBarItem(
               icon: Icon(Icons.pedal_bike),
               label: 'Rides',
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Profile',
             ),
           ]),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final res = await GeocodingService()
-              .getSuggestions('Jawaharlal Nehru University');
-          for (var a in res) {
-            print(a.formattedAddress);
-          }
-        },
-        child: const Icon(
-          Icons.add,
-          color: Colors.black,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

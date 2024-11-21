@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter_config_plus/flutter_config_plus.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_commute/models/address.dart';
+import 'package:shared_commute/models/google_route.dart';
 
 class GeocodingService {
   final String apiKey = FlutterConfigPlus.get('GOOGLE_MAPS_API_KEY');
@@ -89,6 +91,29 @@ class GeocodingService {
       }
     } else {
       throw Exception('Failed to connect to Geocoding API');
+    }
+  }
+
+  Future<GoogleRoute> getPathDistance(LatLng origin, LatLng destination) async {
+    final String url =
+        'https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&key=$apiKey&mode=driving'; // Change 'mode' to 'walking', 'bicycling', or 'transit' as needed.
+
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+
+      if ((data['routes'] as List).isNotEmpty) {
+        final route = data['routes'][0];
+        final leg = route['legs'][0];
+
+        final GoogleRoute gRoute = GoogleRoute.fromJson(leg);
+        return gRoute;
+      } else {
+        throw Exception('No routes found');
+      }
+    } else {
+      throw Exception('Failed to fetch directions');
     }
   }
 }

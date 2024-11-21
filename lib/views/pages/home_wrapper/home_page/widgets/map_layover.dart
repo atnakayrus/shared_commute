@@ -64,9 +64,11 @@ class _MapLayoverState extends State<MapLayover> {
                               if (text != '') {
                                 final newSuggestions = await GeocodingService()
                                     .getSuggestions(text);
-                                setState(() {
-                                  suggestions = newSuggestions;
-                                });
+                                if (context.mounted) {
+                                  setState(() {
+                                    suggestions = newSuggestions;
+                                  });
+                                }
                               } else {
                                 suggestions = [];
                               }
@@ -101,9 +103,11 @@ class _MapLayoverState extends State<MapLayover> {
                               if (text != '') {
                                 final newSuggestions = await GeocodingService()
                                     .getSuggestions(text);
-                                setState(() {
-                                  suggestions = newSuggestions;
-                                });
+                                if (context.mounted) {
+                                  setState(() {
+                                    suggestions = newSuggestions;
+                                  });
+                                }
                               } else {
                                 suggestions = [];
                               }
@@ -139,11 +143,13 @@ class _MapLayoverState extends State<MapLayover> {
                       widget.setDest(address);
                       widget.destController.text = address.formattedAddress!;
                     }
-                    setState(() {
-                      showDestSuggestions = false;
-                      showSourceSuggestions = false;
-                      suggestions = [];
-                    });
+                    if (context.mounted) {
+                      setState(() {
+                        showDestSuggestions = false;
+                        showSourceSuggestions = false;
+                        suggestions = [];
+                      });
+                    }
                   },
                   child: const SuggestionsTile(title: 'Your Location'),
                 ),
