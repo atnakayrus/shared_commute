@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_commute/views/pages/home_wrapper/profile_page/profile_page.dart';
 import 'package:shared_commute/views/pages/home_wrapper/rides_page/rides_page.dart';
-import 'package:shared_commute/views/pages/home_wrapper/chats_page/chats_page.dart';
-import 'package:shared_commute/views/pages/home_wrapper/home_page/home_page.dart';
+import 'package:shared_commute/views/pages/home_wrapper/inbox_page/inbox_page.dart';
+import 'package:shared_commute/views/pages/home_wrapper/search_page/search_page.dart';
 
 class HomeWrapper extends StatefulWidget {
   static const pageId = '/home';
@@ -13,20 +13,20 @@ class HomeWrapper extends StatefulWidget {
 }
 
 class _HomeWrapperState extends State<HomeWrapper> {
-  int selected = 0;
+  int selected = 2;
 
   Widget selectedPage(selectedPage) {
     switch (selectedPage) {
       case 0:
-        return const HomePage();
+        return const SearchPage();
       case 1:
-        return const ChatsPage();
+        return const InboxPage();
       case 2:
         return const RidesPage();
       case 3:
         return const ProfilePage();
       default:
-        return const HomePage();
+        return const RidesPage();
     }
   }
 
@@ -51,7 +51,7 @@ class _HomeWrapperState extends State<HomeWrapper> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.message),
-              label: 'Chats',
+              label: 'Inbox',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.pedal_bike),

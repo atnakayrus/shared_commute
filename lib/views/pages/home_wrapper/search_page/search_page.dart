@@ -8,19 +8,19 @@ import 'package:shared_commute/controllers/location/location_controller.dart';
 import 'package:shared_commute/models/address.dart';
 import 'package:shared_commute/models/google_route.dart';
 import 'package:shared_commute/services/geocoding_service.dart';
-import 'package:shared_commute/views/pages/home_wrapper/home_page/widgets/home_bottom_tab.dart';
-import 'package:shared_commute/views/pages/home_wrapper/home_page/widgets/home_map.dart';
-import 'package:shared_commute/views/pages/home_wrapper/home_page/widgets/map_layover.dart';
+import 'package:shared_commute/views/pages/home_wrapper/search_page/widgets/home_bottom_tab.dart';
+import 'package:shared_commute/views/pages/home_wrapper/search_page/widgets/home_map.dart';
+import 'package:shared_commute/views/pages/home_wrapper/search_page/widgets/map_layover.dart';
 import 'package:shared_commute/views/widgets/sc_error_page.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<SearchPage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<SearchPage> {
   TextEditingController originController = TextEditingController();
   TextEditingController destController = TextEditingController();
   LatLng? origin;
