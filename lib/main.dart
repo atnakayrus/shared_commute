@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_config_plus/flutter_config_plus.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_commute/provider/user_provider.dart';
 import 'package:shared_commute/views/pages/home_wrapper/inbox_page/add_new_page.dart';
 import 'package:shared_commute/views/pages/home_wrapper/inbox_page/search_page.dart';
 import 'package:shared_commute/views/pages/home_wrapper/home_wrapper.dart';
@@ -14,7 +16,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await FlutterConfigPlus.loadEnvVariables();
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

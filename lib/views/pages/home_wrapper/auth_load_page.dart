@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_commute/controllers/user_auth/user_auth_controller.dart';
+import 'package:shared_commute/provider/user_provider.dart';
 import 'package:shared_commute/views/pages/home_wrapper/home_wrapper.dart';
 import 'package:shared_commute/views/pages/login_signup_routes/login_page.dart';
 
@@ -19,6 +22,9 @@ class _AuthLoadPageState extends State<AuthLoadPage> {
         builder: (context, snapshot) {
           debugPrint("Auth Changes");
           if (snapshot.hasData) {
+            context
+                .read<UserProvider>()
+                .updateUserFromUid(UserAuthController().getUser!.uid);
             return const HomeWrapper();
           } else {
             return const LoginPage();

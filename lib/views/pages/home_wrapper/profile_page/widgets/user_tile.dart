@@ -1,14 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_commute/consts/appstyle.dart';
-import 'package:shared_commute/controllers/user_auth/user_auth_controller.dart';
+import 'package:shared_commute/consts/global_consts.dart';
+import 'package:shared_commute/models/user_model.dart';
+import 'package:shared_commute/provider/user_provider.dart';
 
 class UserTile extends StatelessWidget {
   const UserTile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    User user = UserAuthController().getUser!;
+    UserModel user = context.read<UserProvider>().user;
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -26,8 +28,7 @@ class UserTile extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(Appstyle().scUserIconSize),
-              child: Image.network(user.photoURL ??
-                  "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png"),
+              child: Image.network(user.displayPic ?? GlobalConsts.altPfp),
             ),
           ),
           const SizedBox(width: 20),
