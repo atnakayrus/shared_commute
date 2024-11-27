@@ -4,7 +4,7 @@ import 'package:shared_commute/controllers/user_auth/user_auth_controller.dart';
 import 'package:shared_commute/controllers/user_data/user_data_controller.dart';
 import 'package:shared_commute/models/chat_room.dart';
 import 'package:shared_commute/models/user_model.dart';
-import 'package:shared_commute/views/pages/home_wrapper/chats_page/chat_page/chat_page.dart';
+import 'package:shared_commute/views/pages/home_wrapper/inbox_page/chat_page/chat_page.dart';
 
 class ChatTile extends StatelessWidget {
   final ChatRoom chat;

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_config_plus/flutter_config_plus.dart';
-import 'package:shared_commute/views/pages/home_wrapper/chats_page/add_new_page.dart';
-import 'package:shared_commute/views/pages/home_wrapper/chats_page/search_page.dart';
+import 'package:shared_commute/views/pages/home_wrapper/inbox_page/add_new_page.dart';
+import 'package:shared_commute/views/pages/home_wrapper/inbox_page/search_page.dart';
 import 'package:shared_commute/views/pages/home_wrapper/home_wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_commute/views/pages/home_wrapper/auth_load_page.dart';
 import 'package:shared_commute/views/pages/home_wrapper/profile_page/edit_profile.dart';
 import 'package:shared_commute/views/pages/login_signup_routes/login_page.dart';
 import 'package:shared_commute/views/pages/login_signup_routes/signup_page.dart';
+import 'package:shared_commute/views/pages/new_rides/new_ride_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         '/searchPage': (context) => const SearchPage(),
         '/addNewPage': (context) => const AddNewPage(),
         '/editProfile': (context) => const EditProfile(),
+        '/newRide': (context) => const NewRidePage(),
       },
       initialRoute: '/',
       navigatorObservers: [routeObserver],

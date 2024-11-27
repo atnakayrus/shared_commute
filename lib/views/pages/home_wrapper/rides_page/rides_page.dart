@@ -14,19 +14,26 @@ class _RidesPageState extends State<RidesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: scAppBar('rides'),
-        body: ScInfoWidget(
-            icon: Icons.pedal_bike, text: 'Your rides will appear here')
-        //  SingleChildScrollView(
-        //   child: Column(
-        //     children: [
-        //       RideTile(),
-        //       RideTile(),
-        //       RideTile(),
-        //       RideTile(),
-        //     ],
-        //   ),
-        // ),
-        );
+      appBar: scAppBar('rides'),
+      body:
+          // ScInfoWidget(
+          //     icon: Icons.pedal_bike, text: 'Your rides will appear here')
+          SingleChildScrollView(
+        child: Column(
+          children: [
+            RideTile(),
+            RideTile(),
+            RideTile(),
+            RideTile(),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/newRide');
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 }

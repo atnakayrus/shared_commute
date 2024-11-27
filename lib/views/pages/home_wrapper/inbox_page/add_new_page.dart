@@ -3,7 +3,7 @@ import 'package:shared_commute/consts/appstyle.dart';
 import 'package:shared_commute/controllers/socials/social_utils.dart';
 import 'package:shared_commute/controllers/user_auth/user_auth_controller.dart';
 import 'package:shared_commute/models/user_model.dart';
-import 'package:shared_commute/views/pages/home_wrapper/chats_page/widgets/searched_user_tile.dart';
+import 'package:shared_commute/views/pages/home_wrapper/inbox_page/widgets/searched_user_tile.dart';
 import 'package:shared_commute/views/widgets/sc_icon_button.dart';
 
 class AddNewPage extends StatefulWidget {

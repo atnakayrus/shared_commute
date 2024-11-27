@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_commute/views/pages/home_wrapper/profile_page/profile_page.dart';
 import 'package:shared_commute/views/pages/home_wrapper/rides_page/rides_page.dart';
 import 'package:shared_commute/views/pages/home_wrapper/inbox_page/inbox_page.dart';
-import 'package:shared_commute/views/pages/home_wrapper/search_page/search_page.dart';
 
 class HomeWrapper extends StatefulWidget {
   static const pageId = '/home';
@@ -13,17 +12,15 @@ class HomeWrapper extends StatefulWidget {
 }
 
 class _HomeWrapperState extends State<HomeWrapper> {
-  int selected = 2;
+  int selected = 1;
 
   Widget selectedPage(selectedPage) {
     switch (selectedPage) {
       case 0:
-        return const SearchPage();
-      case 1:
         return const InboxPage();
-      case 2:
+      case 1:
         return const RidesPage();
-      case 3:
+      case 2:
         return const ProfilePage();
       default:
         return const RidesPage();
@@ -45,10 +42,6 @@ class _HomeWrapperState extends State<HomeWrapper> {
             });
           },
           items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
             BottomNavigationBarItem(
               icon: Icon(Icons.message),
               label: 'Inbox',
