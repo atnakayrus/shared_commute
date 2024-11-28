@@ -9,6 +9,7 @@ import 'package:shared_commute/models/ride.dart';
 import 'package:shared_commute/models/user_model.dart';
 import 'package:shared_commute/services/geocoding_service.dart';
 import 'package:shared_commute/views/widgets/corner_flair.dart';
+import 'package:shared_commute/views/widgets/sc_button.dart';
 
 class RideTile extends StatefulWidget {
   final RideLog ride;
@@ -223,6 +224,14 @@ class _RideTileState extends State<RideTile> {
                             ),
                           ],
                         ),
+                        if (ride!.user2 == null && widget.ride.active!)
+                          ScButton(
+                            onTap: () {
+                              RideService()
+                                  .cancelRide(rideId: widget.ride.uid!);
+                            },
+                            text: 'Cancel Ride',
+                          ),
                       ],
                     ),
                   ),
