@@ -44,7 +44,7 @@ class ChatRoom {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['uid'] = uid;
     data['person1'] = person1;
     data['person2'] = person2;

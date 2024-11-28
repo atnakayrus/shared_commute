@@ -27,7 +27,7 @@ class Address {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (addressComponents != null) {
       data['address_components'] =
           addressComponents!.map((v) => v.toJson()).toList();
@@ -56,7 +56,7 @@ class AddressComponents {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['long_name'] = longName;
     data['short_name'] = shortName;
     data['types'] = types;
@@ -80,8 +80,8 @@ class Geometry {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    if (this.location != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (location != null) {
       data['location'] = location!.toJson();
     }
     data['location_type'] = locationType;
@@ -104,7 +104,7 @@ class Location {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['lat'] = lat;
     data['lng'] = lng;
     return data;
@@ -125,7 +125,7 @@ class Viewport {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (northeast != null) {
       data['northeast'] = northeast!.toJson();
     }

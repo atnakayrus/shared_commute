@@ -12,7 +12,7 @@ class GoogleRoute {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (distance != null) {
       data['distance'] = distance!.toJson();
     }
@@ -35,7 +35,7 @@ class Distance {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['text'] = text;
     data['value'] = value;
     return data;

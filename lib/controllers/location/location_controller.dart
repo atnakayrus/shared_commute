@@ -53,9 +53,9 @@ class LocationController {
                   mode: TravelMode.driving),
               googleApiKey: key);
       if (polylineResult.points.isNotEmpty) {
-        polylineResult.points.forEach((PointLatLng point) {
+        for (var point in polylineResult.points) {
           polyPoints.add(LatLng(point.latitude, point.longitude));
-        });
+        }
       }
     } catch (e) {
       debugPrint("Oops an error occured");

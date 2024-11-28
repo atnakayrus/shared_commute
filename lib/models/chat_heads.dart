@@ -10,9 +10,9 @@ class ChatHeads {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['uid'] = this.uid;
-    data['rooms'] = this.rooms;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['uid'] = uid;
+    data['rooms'] = rooms;
     return data;
   }
 }
