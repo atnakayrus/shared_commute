@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_commute/consts/appstyle.dart';
 import 'package:shared_commute/models/user_model.dart';
-import 'package:shared_commute/views/pages/home_wrapper/chats_page/chat_page/chat_page.dart';
+import 'package:shared_commute/views/pages/home_wrapper/inbox_page/chat_page/chat_page.dart';
 
 class SearchedUserTile extends StatelessWidget {
   final UserModel user;

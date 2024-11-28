@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_commute/controllers/user_auth/user_auth_controller.dart';
+import 'package:shared_commute/provider/user_provider.dart';
 import 'package:shared_commute/views/pages/home_wrapper/profile_page/edit_profile.dart';
 import 'package:shared_commute/views/pages/home_wrapper/profile_page/widgets/user_tile.dart';
 import 'package:shared_commute/views/widgets/sc_text_button.dart';
@@ -58,6 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ScTextButton(
                 onTap: () {
                   UserAuthController().userSignout();
+                  context.read<UserProvider>().resetUser();
                 },
                 text: "Logout",
                 icon: Icons.logout,

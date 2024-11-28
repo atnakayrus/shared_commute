@@ -99,6 +99,7 @@ class _ScTextInputState extends State<ScTextInput> {
             ),
           ),
           hintText: widget.hintText,
+          hintStyle: const TextStyle(color: Colors.grey),
           labelText: widget.labelText,
           helperText: widget.helperText,
           contentPadding: const EdgeInsets.fromLTRB(15, 10, 10, 15),

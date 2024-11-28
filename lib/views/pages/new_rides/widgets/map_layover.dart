@@ -44,9 +44,6 @@ class _MapLayoverState extends State<MapLayover> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const SizedBox(
-                      height: 30,
-                    ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [

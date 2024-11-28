@@ -4,8 +4,6 @@ import 'package:shared_commute/consts/appstyle.dart';
 class ScButton extends StatelessWidget {
   final Function() onTap;
   String? text;
-  double? width;
-  double? height;
   IconData? icon;
   final bool isDisabled;
   final bool isLarge;
@@ -14,8 +12,6 @@ class ScButton extends StatelessWidget {
     super.key,
     required this.onTap,
     this.text,
-    this.width,
-    this.height,
     this.icon,
     this.isDisabled = false,
     this.isLarge = true,

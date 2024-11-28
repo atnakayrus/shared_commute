@@ -13,16 +13,23 @@ class ScLoadingPage extends StatefulWidget {
 class _ScLoadingPageState extends State<ScLoadingPage> {
   String text = 'Loading';
   int num = 1;
+  late Timer t;
 
   @override
   void initState() {
     super.initState();
-    Timer.periodic(const Duration(milliseconds: 500), (timer) {
+    t = Timer.periodic(const Duration(milliseconds: 500), (timer) {
       num = (num) % 3 + 1;
       setState(() {
         text = "Loading${"." * num}";
       });
     });
+  }
+
+  @override
+  void dispose() {
+    t.cancel();
+    super.dispose();
   }
 
   @override
