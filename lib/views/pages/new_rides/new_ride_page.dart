@@ -9,6 +9,7 @@ import 'package:shared_commute/controllers/location/location_controller.dart';
 import 'package:shared_commute/models/address.dart';
 import 'package:shared_commute/models/google_route.dart';
 import 'package:shared_commute/services/geocoding_service.dart';
+import 'package:shared_commute/views/pages/new_rides/find_ride_page.dart';
 import 'package:shared_commute/views/pages/new_rides/widgets/home_bottom_tab.dart';
 import 'package:shared_commute/views/pages/new_rides/widgets/home_map.dart';
 import 'package:shared_commute/views/pages/new_rides/widgets/map_layover.dart';
@@ -25,15 +26,27 @@ class _NewRidePageState extends State<NewRidePage> {
   TextEditingController originController = TextEditingController();
   TextEditingController destController = TextEditingController();
   LatLng? origin;
+  Address? originAddress;
   LatLng? self;
   bool showOrigin = false;
   bool isAllowed = false;
   List<LatLng> dest = [];
+  Address? destinationAddress;
   GoogleRoute? gRoute;
 
   LocationController locationController = LocationController();
 
   StreamSubscription<LocationData>? _locationSubscription;
+
+  void search() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => FindRidePage(
+                  origin: originAddress!,
+                  dest: destinationAddress!,
+                )));
+  }
 
   @override
   void initState() {
@@ -52,6 +65,7 @@ class _NewRidePageState extends State<NewRidePage> {
       origin = LatLng(newOrigin.geometry!.location!.lat!,
           newOrigin.geometry!.location!.lng!);
       showOrigin = true;
+      originAddress = newOrigin;
     });
     getPath();
   }
@@ -61,6 +75,7 @@ class _NewRidePageState extends State<NewRidePage> {
       dest = [];
       dest.add(LatLng(
           newDest.geometry!.location!.lat!, newDest.geometry!.location!.lng!));
+      destinationAddress = newDest;
     });
     getPath();
   }
@@ -130,7 +145,8 @@ class _NewRidePageState extends State<NewRidePage> {
                   setDest: setDest,
                   setSource: setSource,
                 ),
-                if (gRoute != null) HomeBottomTab(gRoute: gRoute!, onTap: () {})
+                if (gRoute != null)
+                  HomeBottomTab(gRoute: gRoute!, onTap: search)
               ],
             ),
     );

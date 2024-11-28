@@ -5,6 +5,7 @@ import 'package:shared_commute/consts/enums.dart';
 import 'package:shared_commute/controllers/socials/chat_controller.dart';
 import 'package:shared_commute/controllers/socials/message_controller.dart';
 import 'package:shared_commute/controllers/user_auth/user_auth_controller.dart';
+import 'package:shared_commute/controllers/user_data/user_data_controller.dart';
 import 'package:shared_commute/models/message.dart';
 import 'package:shared_commute/models/user_model.dart';
 import 'package:shared_commute/views/pages/home_wrapper/inbox_page/widgets/message_tile.dart';
@@ -71,8 +72,9 @@ class _ChatPageState extends State<ChatPage> {
                 onSubmit: () async {
                   if (messageController.text == '') {
                   } else {
-                    final code = await chat.createChatRoom(
-                        UserAuthController().getUser!, widget.user);
+                    UserModel self = await UserDataController()
+                        .getUserById(UserAuthController().getUser!.uid);
+                    final code = await chat.createChatRoom(self, widget.user);
                     if (code == ResponseCode.success) {
                       message.sendMessage(
                           message: Message(
@@ -103,7 +105,7 @@ class _ChatPageState extends State<ChatPage> {
                             element.data() as Map<String, dynamic>);
                         return MessageTile(
                             message: me,
-                            sender: widget.user.displayName!,
+                            sender: widget.user.displayName ?? '',
                             self: me.sender != widget.user.uid);
                       }),
                     ],

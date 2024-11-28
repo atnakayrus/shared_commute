@@ -33,9 +33,16 @@ class ChatController {
         .snapshots();
   }
 
-  Future<ResponseCode> createChatRoom(User user1, UserModel user2) async {
+  String createChatRoomId(UserModel user1, UserModel user2) {
+    List<String> ls = [user1.uid!, user2.uid!];
+    ls.sort();
+    String roomId = ls[0] + ls[1];
+    return roomId;
+  }
+
+  Future<ResponseCode> createChatRoom(UserModel user1, UserModel user2) async {
     try {
-      List<String> ls = [user1.uid, user2.uid!];
+      List<String> ls = [user1.uid!, user2.uid!];
       ls.sort();
       String roomId = ls[0] + ls[1];
       bool exists = await roomExists(roomId: roomId);
