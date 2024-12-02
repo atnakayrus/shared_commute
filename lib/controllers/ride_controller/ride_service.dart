@@ -28,7 +28,9 @@ class RideService {
       RideLog rideLog = RideLog.fromJson(doc.data() as Map<String, dynamic>);
       Ride ride = await getRideById(rideLog.uid!);
       DateTime now = DateTime.now();
-      DateTime creationTime = ride.creationTime!.toDate();
+      DateTime creationTime = ride.rideStartTime == null
+          ? ride.creationTime!.toDate()
+          : ride.rideStartTime!.toDate();
       Duration diff = now.difference(creationTime);
       if (diff.inMinutes > 20) {
         firestore
@@ -48,7 +50,9 @@ class RideService {
   }
 
   Future<List<Ride>> getNearbyRides(
-      {required Address origin, required Address dest}) async {
+      {required Address origin,
+      required Address dest,
+      required DateTime selectedTime}) async {
     List<Ride> validRides = [];
     await firestore
         .collection('rides')
@@ -56,7 +60,11 @@ class RideService {
         .get()
         .then((querySnapshot) async {
       List<Future<Ride?>> futures = querySnapshot.docs
-          .map((doc) => _isRideValid(origin, dest, Ride.fromJson(doc.data())))
+          .map((doc) => _isRideValid(
+              origin: origin,
+              dest: dest,
+              newRide: Ride.fromJson(doc.data()),
+              selectedTime: selectedTime))
           .toList();
 
       List<Ride?> result = await Future.wait(futures);
@@ -69,14 +77,17 @@ class RideService {
     return validRides;
   }
 
-  Future<Ride?> _isRideValid(Address origin, Address dest, Ride newRide) async {
+  Future<Ride?> _isRideValid(
+      {required Address origin,
+      required Address dest,
+      required Ride newRide,
+      required DateTime selectedTime}) async {
     if (newRide.user1 == _auth.currentUser!.uid) {
       return null;
     } else {
-      DateTime now = DateTime.now();
-      DateTime creationTime = newRide.creationTime!.toDate();
-      Duration diff = now.difference(creationTime);
-      if (diff.inMinutes > 15) {
+      DateTime rideStartTime = newRide.rideStartTime!.toDate();
+      Duration diff = selectedTime.difference(rideStartTime);
+      if (diff.inMinutes > 15 || diff.inMinutes < 30) {
         return null;
       }
 
@@ -172,7 +183,10 @@ class RideService {
   }
 
   Future<Ride> createRide(
-      {required Address origin, required Address destination}) async {
+      {required Address origin,
+      required Address destination,
+      required Timestamp startTime,
+      required bool hasVehicle}) async {
     UserModel user =
         await UserDataController().getUserById(_auth.currentUser!.uid);
     Timestamp time = Timestamp.now();
@@ -185,6 +199,8 @@ class RideService {
       user1Origin: origin.placeId,
       user1Dest: destination.placeId,
       creationTime: Timestamp.now(),
+      rideStartTime: startTime,
+      vehicleAvailable: hasVehicle,
     );
     await firestore.collection('rides').doc(uid).set(newRide.toJson());
     await firestore

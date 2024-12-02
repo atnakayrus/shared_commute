@@ -4,7 +4,9 @@ class Ride {
   String? uid;
   bool? active;
   bool? resolved;
+  bool? vehicleAvailable;
   Timestamp? creationTime;
+  Timestamp? rideStartTime;
   Timestamp? resolutionTime;
   String? user1;
   String? user1Origin;
@@ -24,7 +26,9 @@ class Ride {
       this.user1Dest,
       this.user2,
       this.user2Origin,
-      this.user2Dest});
+      this.user2Dest,
+      this.rideStartTime,
+      this.vehicleAvailable});
 
   Ride.fromJson(Map<String, dynamic> json) {
     uid = json['uid'];
@@ -38,6 +42,8 @@ class Ride {
     user2 = json['user2'];
     user2Origin = json['user2_origin'];
     user2Dest = json['user2_dest'];
+    rideStartTime = json['ride_start_time'];
+    vehicleAvailable = json['vehicle_available'];
   }
 
   Map<String, dynamic> toJson() {
@@ -53,6 +59,8 @@ class Ride {
     data['user2'] = user2;
     data['user2_origin'] = user2Origin;
     data['user2_dest'] = user2Dest;
+    data['ride_start_time'] = rideStartTime;
+    data['vehicle_available'] = vehicleAvailable;
     return data;
   }
 }

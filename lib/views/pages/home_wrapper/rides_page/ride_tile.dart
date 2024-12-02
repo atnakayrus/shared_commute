@@ -35,14 +35,15 @@ class _RideTileState extends State<RideTile> {
 
   void getDetails() async {
     Ride r = await RideService().getRideById(widget.ride.uid!);
-    setState(() {
-      if (context.mounted) {
+    if (context.mounted) {
+      setState(() {
         ride = r;
-      }
-      if (ride!.user2 == UserAuthController().getUser!.uid) {
-        isFirstUser = false;
-      }
-    });
+
+        if (ride!.user2 == UserAuthController().getUser!.uid) {
+          isFirstUser = false;
+        }
+      });
+    }
     if (!isFirstUser) {
       UserDataController().getUserById(ride!.user1!).then((UserModel user) {
         if (context.mounted) {
@@ -208,7 +209,7 @@ class _RideTileState extends State<RideTile> {
                             Text(
                               ride == null
                                   ? '---------'
-                                  : "${ride!.creationTime!.toDate().hour % 12} : ${ride!.creationTime!.toDate().minute} ${ride!.creationTime!.toDate().hour > 12 ? 'pm' : 'am'}",
+                                  : "${(ride!.rideStartTime ?? ride!.creationTime!).toDate().hour ~/ 10}${(ride!.rideStartTime ?? ride!.creationTime!).toDate().hour % 10} : ${ride!.creationTime!.toDate().minute ~/ 10}${ride!.creationTime!.toDate().minute % 10}",
                               style: Appstyle().contentText,
                             ),
                           ],
@@ -219,11 +220,25 @@ class _RideTileState extends State<RideTile> {
                             Text(
                               ride == null
                                   ? '---------'
-                                  : "${ride!.creationTime!.toDate().day} / ${ride!.creationTime!.toDate().month} / ${ride!.creationTime!.toDate().year}",
+                                  : "${(ride!.rideStartTime ?? ride!.creationTime!).toDate().day} / ${(ride!.rideStartTime ?? ride!.creationTime!).toDate().month} / ${(ride!.rideStartTime ?? ride!.creationTime!).toDate().year}",
                               style: Appstyle().contentText,
                             ),
                           ],
                         ),
+                        if (ride!.vehicleAvailable ?? false)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                ride == null
+                                    ? '---------'
+                                    : isFirstUser
+                                        ? "You have a vehicle"
+                                        : "${user2 == null ? user2!.displayName : "------"} Has a vehicle",
+                                style: Appstyle().contentText,
+                              ),
+                            ],
+                          ),
                         if (ride!.user2 == null && widget.ride.active!)
                           ScButton(
                             onTap: () {

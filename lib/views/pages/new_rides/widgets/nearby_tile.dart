@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_commute/common/utils.dart';
 import 'package:shared_commute/consts/appstyle.dart';
 import 'package:shared_commute/consts/global_consts.dart';
 import 'package:shared_commute/controllers/ride_controller/ride_service.dart';
@@ -87,6 +88,17 @@ class _NearbyTileState extends State<NearbyTile> {
               ),
             ],
           ),
+          if (widget.ride.vehicleAvailable ?? false)
+            Text(
+              user == null
+                  ? "----------"
+                  : "${user!.displayName!} has a Vehicle",
+              style: Appstyle().helperText,
+            ),
+          Text(
+            "Ride Leaves at : ${formattedTime(widget.ride.rideStartTime == null ? widget.ride.creationTime!.toDate() : widget.ride.rideStartTime!.toDate())}",
+            style: Appstyle().helperText,
+          ),
           Text(
             'Is Going From :',
             style: Appstyle().helperText,
@@ -116,7 +128,6 @@ class _NearbyTileState extends State<NearbyTile> {
                   rideId: widget.ride.uid!,
                   newOriginId: origin!.placeId!,
                   newDestId: dest!.placeId!);
-              print(widget.ride.uid!);
               await RideService().sendRideMessage(self!, user!);
               if (context.mounted) {
                 Navigator.pop(context);

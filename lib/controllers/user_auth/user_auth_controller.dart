@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_commute/common/toast.dart';
 import 'package:shared_commute/controllers/user_auth/firebase_auth_service.dart';
 import 'package:shared_commute/controllers/user_data/user_data_controller.dart';
 
@@ -40,6 +41,17 @@ class UserAuthController {
   }
 
   User? get getUser => FirebaseAuth.instance.currentUser;
+
+  Future<void> sendVerificationEmail() async {
+    User? user = getUser;
+    await user?.reload();
+    if (user != null && !user.emailVerified) {
+      await user.sendEmailVerification();
+      showToast('Verification Email Sent');
+    } else if (user!.emailVerified) {
+      showToast('Email already verified , please refresh app');
+    }
+  }
 
   void updateUser({String? displayName}) {}
 }

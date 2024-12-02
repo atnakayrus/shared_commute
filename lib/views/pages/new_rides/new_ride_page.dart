@@ -6,6 +6,7 @@ import 'package:location/location.dart';
 import 'package:shared_commute/common/toast.dart';
 import 'package:shared_commute/consts/appstyle.dart';
 import 'package:shared_commute/controllers/location/location_controller.dart';
+import 'package:shared_commute/controllers/user_auth/user_auth_controller.dart';
 import 'package:shared_commute/models/address.dart';
 import 'package:shared_commute/models/google_route.dart';
 import 'package:shared_commute/services/geocoding_service.dart';
@@ -27,7 +28,7 @@ class _NewRidePageState extends State<NewRidePage> {
   TextEditingController destController = TextEditingController();
   LatLng? origin;
   Address? originAddress;
-  LatLng? self;
+  LatLng self = LocationController().getUserLocation;
   bool showOrigin = false;
   bool isAllowed = false;
   List<LatLng> dest = [];
@@ -39,13 +40,17 @@ class _NewRidePageState extends State<NewRidePage> {
   StreamSubscription<LocationData>? _locationSubscription;
 
   void search() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => FindRidePage(
-                  origin: originAddress!,
-                  dest: destinationAddress!,
-                )));
+    if (UserAuthController().getUser!.emailVerified) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => FindRidePage(
+                    origin: originAddress!,
+                    dest: destinationAddress!,
+                  )));
+    } else {
+      showToast('User Not Verified , Please Verify email');
+    }
   }
 
   @override
@@ -93,7 +98,7 @@ class _NewRidePageState extends State<NewRidePage> {
 
   Future<void> getLocationUpdates() async {
     if (!await locationController.isServiceEnabled()) {
-      showToast("Oops! Something went Wrong");
+      showToast("Please turn on your location");
       return;
     } else if (!await locationController.requestPermission()) {
       showToast("Permission not granted");
@@ -144,6 +149,7 @@ class _NewRidePageState extends State<NewRidePage> {
                   destController: destController,
                   setDest: setDest,
                   setSource: setSource,
+                  self: self,
                 ),
                 if (gRoute != null)
                   HomeBottomTab(gRoute: gRoute!, onTap: search)
