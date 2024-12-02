@@ -78,20 +78,35 @@ Shared Commute revolutionizes the way students commute by providing a platform f
 - **Signup Page**
   ![Signup  Page](./screenshots/signup.jpeg)
 
+---
+
 - **Login Page**
   ![Login Page](./screenshots/login.jpeg)
+
+---
 
 - **Post Ride Page**
   ![Post Ride Page](./screenshots/Find_rides.jpeg)
 
+---
+
 - **Search Ride Page**
   ![Search Ride Page](./screenshots/two_points_on_map.jpeg)
+
+---
 
 - **Ride Details Page**
   ![Ride Details Page](./screenshots/available_ride.jpeg)
 
+---
+
 - **Inbox**
   ![Inbox Page](./screenshots/chatbox.jpeg)
+
+---
+
+- **User Profile**
+  ![User Profile](./screenshots/user_account.jpeg)
 
 ---
 
