@@ -110,18 +110,21 @@ class _EditProfileState extends State<EditProfile> {
                 height: 20,
               ),
               ScButton(
-                onTap: () {
+                onTap: () async {
                   if (imageFile != null) {
                     UserDataController().uploadProfilePicture(imageFile!);
                   }
-                  UserDataController().updateUserDetails(
+                  await UserDataController().updateUserDetails(
                       context: context,
                       newName: nameController.text,
                       newPNo: phoneController.text,
                       newDob: dobController.text);
-                  context
-                      .read<UserProvider>()
-                      .updateUserFromUid(UserAuthController().getUser!.uid);
+                  if (context.mounted) {
+                    context
+                        .read<UserProvider>()
+                        .updateUserFromUid(UserAuthController().getUser!.uid);
+                    Navigator.pop(context);
+                  }
                 },
                 text: "Submit",
               )

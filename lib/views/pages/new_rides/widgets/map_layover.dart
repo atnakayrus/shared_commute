@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_commute/consts/appstyle.dart';
-import 'package:shared_commute/controllers/location/location_controller.dart';
 import 'package:shared_commute/models/address.dart';
 import 'package:shared_commute/services/geocoding_service.dart';
 import 'package:shared_commute/views/widgets/sc_icon_button.dart';
@@ -12,13 +11,15 @@ class MapLayover extends StatefulWidget {
   final TextEditingController destController;
   final Function(Address) setSource;
   final Function(Address) setDest;
+  final LatLng self;
 
   const MapLayover(
       {super.key,
       required this.originController,
       required this.destController,
       required this.setSource,
-      required this.setDest});
+      required this.setDest,
+      required this.self});
 
   @override
   State<MapLayover> createState() => _MapLayoverState();
@@ -130,9 +131,9 @@ class _MapLayoverState extends State<MapLayover> {
                 GestureDetector(
                   onTap: () async {
                     FocusScope.of(context).unfocus();
-                    LatLng latLng = LocationController().getUserLocation;
                     Address address = await GeocodingService()
-                        .getAddressByLatLng(latLng.latitude, latLng.longitude);
+                        .getAddressByLatLng(
+                            widget.self.latitude, widget.self.longitude);
                     if (showSourceSuggestions) {
                       widget.setSource(address);
                       widget.originController.text = address.formattedAddress!;

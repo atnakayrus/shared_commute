@@ -13,6 +13,18 @@ class SignupPage extends StatefulWidget {
   State<SignupPage> createState() => _SignupPageState();
 }
 
+bool isPasswordValid(String pass) {
+  if (!pass.contains(RegExp(r'[A-Z]'))) {
+    return false;
+  } else if (!pass.contains(RegExp(r'[0-9]'))) {
+    return false;
+  } else if (pass.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
@@ -98,6 +110,9 @@ class _SignupPageState extends State<SignupPage> {
                   confirmPasswordController.text == passwordController.text) {
                 if (!emailController.text.contains('jnu.ac.in')) {
                   showToast('Please enter jnu id');
+                } else if (!isPasswordValid(passwordController.text)) {
+                  showToast(
+                      'Invalid password , please use atleast one uppercase , one number and one special character');
                 } else {
                   int res = await UserAuthController().userSignup(
                     email: emailController.text,
@@ -106,6 +121,7 @@ class _SignupPageState extends State<SignupPage> {
                   );
                   if (res == 1 && context.mounted) {
                     Navigator.popAndPushNamed(context, '/');
+                    UserAuthController().sendVerificationEmail();
                   }
                 }
               }
