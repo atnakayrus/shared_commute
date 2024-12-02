@@ -46,6 +46,7 @@ Shared Commute revolutionizes the way students commute by providing a platform f
 - **Real-Time Route Matching**: Matches rides based on origin, destination, and travel time.
 - **Google Maps Integration**: Displays routes and calculates distance in real time.
 - **Ride Details**: View ride-sharing options, including driver details and seat availability.
+- **In App Chatting**: Users can chat among themselves and can plan their rides conveniently.
 
 ---
 
@@ -74,19 +75,23 @@ Shared Commute revolutionizes the way students commute by providing a platform f
 
 ## App Screenshots
 
-> _Placeholders for screenshots. Add your app screenshots here:_
+- **Signup Page**
+  ![Signup  Page](./screenshots/signup.jpeg)
 
 - **Login Page**
-  ![Login Page](./screenshots/login_page.png)
+  ![Login Page](./screenshots/login.jpeg)
 
 - **Post Ride Page**
-  ![Post Ride Page](./screenshots/post_ride_page.png)
+  ![Post Ride Page](./screenshots/Find_rides.jpeg)
 
 - **Search Ride Page**
-  ![Search Ride Page](./screenshots/search_ride_page.png)
+  ![Search Ride Page](./screenshots/two_points_on_map.jpeg)
 
 - **Ride Details Page**
-  ![Ride Details Page](./screenshots/ride_details_page.png)
+  ![Ride Details Page](./screenshots/available_ride.jpeg)
+
+- **Inbox**
+  ![Inbox Page](./screenshots/chatbox.jpeg)
 
 ---
 
@@ -125,17 +130,19 @@ Shared Commute revolutionizes the way students commute by providing a platform f
 
 ### Deployment
 
-- Deployed the app on the **Google Play Store** and **Apple App Store**.
-- Enabled monitoring for app performance and user feedback.
+- Currently, The app is in development phase, so we are sharing the app as an apk and collecting user experriences and feedbacks for furthur improvements.
 
 ---
 
 ## Future Work
 
+### Deployment
+
 - **In-App Payment**: Add functionality for secure ride cost transactions.
 - **Platform Expansion**: Extend the app to other campuses and communities.
 - **AI Integration**: Use AI and ML to improve route-matching algorithms and predict user preferences.
 - **Additional Features**: Incorporate real-time chat, notifications, and ride-sharing history.
+- **Deployment**: - Deployed the app on the **Google Play Store** and **Apple App Store**.
 
 ---
 
@@ -156,4 +163,3 @@ This project is licensed under the [MIT License](./LICENSE).
 Shared Commute aims to redefine how students travel by creating an eco-friendly, community-driven ride-sharing platform. We strive to improve the commuting experience with innovative features and cutting-edge technology.
 
 ---
-
