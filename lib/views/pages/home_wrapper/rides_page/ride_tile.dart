@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_commute/common/utils.dart';
 import 'package:shared_commute/consts/appstyle.dart';
 import 'package:shared_commute/consts/global_consts.dart';
 import 'package:shared_commute/controllers/ride_controller/ride_service.dart';
@@ -124,28 +125,30 @@ class _RideTileState extends State<RideTile> {
                                         : user2!.displayPic ??
                                             GlobalConsts.altPfp),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 5, horizontal: 10),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          user2 == null
-                                              ? '-------------'
-                                              : user2!.displayName!,
-                                          style: Appstyle().subtitleText,
-                                          softWrap: true,
-                                        ),
-                                        Text(
-                                          user2 == null
-                                              ? '-------------'
-                                              : user2!.email!,
-                                          style: Appstyle().contentText,
-                                          softWrap: true,
-                                        ),
-                                      ],
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5, horizontal: 10),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            user2 == null
+                                                ? '-------------'
+                                                : user2!.displayName!,
+                                            style: Appstyle().subtitleText,
+                                            softWrap: true,
+                                          ),
+                                          Text(
+                                            user2 == null
+                                                ? '-------------'
+                                                : user2!.email!,
+                                            style: Appstyle().contentText,
+                                            softWrap: true,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   )
                                 ],
@@ -209,7 +212,9 @@ class _RideTileState extends State<RideTile> {
                             Text(
                               ride == null
                                   ? '---------'
-                                  : "${(ride!.rideStartTime ?? ride!.creationTime!).toDate().hour ~/ 10}${(ride!.rideStartTime ?? ride!.creationTime!).toDate().hour % 10} : ${ride!.creationTime!.toDate().minute ~/ 10}${ride!.creationTime!.toDate().minute % 10}",
+                                  : formattedTime(ride!.rideStartTime == null
+                                      ? ride!.creationTime!.toDate()
+                                      : ride!.rideStartTime!.toDate()),
                               style: Appstyle().contentText,
                             ),
                           ],

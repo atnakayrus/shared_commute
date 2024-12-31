@@ -37,6 +37,7 @@ class _FindRidePageState extends State<FindRidePage> {
 
   Future<bool> onTap() async {
     bool check = await RideService().hasActiveRide();
+    bool make = false;
     if (check) {
       showToast('Oops! Looks like you have an active ride');
       return false;
@@ -64,9 +65,12 @@ class _FindRidePageState extends State<FindRidePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Time : ',
-                            style: Appstyle().subtitleText,
+                          Expanded(
+                            child: Text(
+                              'Time : ',
+                              style: Appstyle().subtitleText,
+                              softWrap: true,
+                            ),
                           ),
                           GestureDetector(
                             onTap: () async {
@@ -98,9 +102,12 @@ class _FindRidePageState extends State<FindRidePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'I have a Vehicle: ',
-                            style: Appstyle().subtitleText,
+                          Expanded(
+                            child: Text(
+                              'I have a Vehicle: ',
+                              style: Appstyle().subtitleText,
+                              softWrap: true,
+                            ),
                           ),
                           Switch(
                               value: hasVehicle,
@@ -171,6 +178,7 @@ class _FindRidePageState extends State<FindRidePage> {
                             showToast('Oops Something went wrong');
                           }
                           if (context.mounted) {
+                            make = true;
                             Navigator.pop(context);
                           }
                         }
@@ -183,7 +191,7 @@ class _FindRidePageState extends State<FindRidePage> {
             });
       }
 
-      return true;
+      return make;
     }
   }
 

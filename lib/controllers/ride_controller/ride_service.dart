@@ -87,7 +87,7 @@ class RideService {
     } else {
       DateTime rideStartTime = newRide.rideStartTime!.toDate();
       Duration diff = selectedTime.difference(rideStartTime);
-      if (diff.inMinutes > 15 || diff.inMinutes < 30) {
+      if (diff.inMinutes > 15 || diff.inMinutes < -30) {
         return null;
       }
 
